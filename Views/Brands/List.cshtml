@@ -1,0 +1,45 @@
+﻿@model IEnumerable<testCore.Models.Laptop> 
+@{
+    ViewData["Title"] = "List Item";
+}
+
+<h1>List Item of brand</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model=> model.LaptopName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.Amount)
+            </th>
+            <th></th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model=>item.LaptopName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model=>item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(model=>item.Amount)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<div>
+    <a asp-action="Index">Back to Brand</a>
+</div>
+
