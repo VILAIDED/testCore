@@ -17,6 +17,8 @@ namespace testCore.Data
         public DbSet<Laptop> Laptop { get; set; }
         public DbSet<Component> Components { get; set; }
         public DbSet<LaptopImage> LaptopImage { get; set; }
+        public DbSet<Bill> Bills {get;set;}
+        public DbSet<BillInfo> BillInfos {get;set;}
 
     }
 }

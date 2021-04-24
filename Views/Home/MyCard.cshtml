@@ -1,0 +1,52 @@
+@model testCore.Models.Bill
+@{
+    List<Item> itemList = ViewData["itemList"] as List<Item>;
+    ViewData["Titile"] = "My Card";
+}
+<h1>List of Item in Card</h1>
+<table>
+    <tbody>
+        @if(itemList != null){
+        foreach(Item item in itemList){
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem=> item.Laptop.LaptopName)
+                </td>
+                <td>@Html.DisplayFor(modelItem=> item.Laptop.Price)
+
+                </td>
+                <td>@Html.DisplayFor(modelItem=> item.Laptop.Brand.BrandName)</td>
+               
+                <td></td>
+                <td></td>
+                <td> 
+                    <input type="number" min="0" step="1" value="@Html.DisplayFor(modelItem=>item.Quanlity)"/>
+                </td>
+            </tr>
+        }
+        }
+    </tbody>
+</table>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Order" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CustomerName" class="control-label"></label>
+                <input asp-for="CustomerName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit"  value="Order" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

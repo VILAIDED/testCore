@@ -32,9 +32,43 @@ namespace testCore.Controllers
         {
             return View();
         }
+        public IActionResult MyCard(){
+            List<Item> itemList = new List<Item>();
+             string json = HttpContext.Session.GetString("Cart");
+            if(json != null){
+            itemList = JsonConvert.DeserializeObject<List<Item>>(json);
+            ViewData["itemList"] = itemList;
+            }
+            return View();
+        }
+        public  async Task<IActionResult> Order([Bind("CustomerName,Email,Phone")]Bill bill){
+            if(ModelState.IsValid){
+              //  double price = 0;
+                bill.OrderDate = DateTime.Now;
+                _context.Add(bill);
+              await  _context.SaveChangesAsync();
+
+                string json = HttpContext.Session.GetString("Cart");
+                List<Item> itemList = JsonConvert.DeserializeObject<List<Item>>(json);
+
+                foreach(Item item in itemList){
+                    BillInfo billInfo = new BillInfo
+                    {
+                        BillID = bill.ID,
+                        Quanlity = item.Quanlity,
+                        LaptopId = item.Laptop.ID,
+                        Price = item.Laptop.Price * item.Quanlity
+                    };
+                    
+                    _context.BillInfos.Add(billInfo);
+                     await  _context.SaveChangesAsync();
+                }
+                HttpContext.Session.Clear();
+            }
+            return RedirectToAction(nameof(Index));
+        }
         public IActionResult AddToCard(int Id)
         {
-
 
             List<Item> itemList = new List<Item>();
             var laptop = _context.Laptop.Find(Id);
@@ -42,8 +76,6 @@ namespace testCore.Controllers
             {
                 string json = HttpContext.Session.GetString("Cart");
                 itemList = JsonConvert.DeserializeObject<List<Item>>(json);
-                
-              
             }
             itemList.Add(new Item
             {

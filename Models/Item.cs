@@ -8,6 +8,6 @@ namespace testCore.Models
     public class Item
     {
         public Laptop Laptop { get; set; }
-        public int Quanlity { get; set; }
+        public int Quanlity { get; set;}
     }
 }

@@ -19,6 +19,8 @@ namespace testCore.Models
         public int Amount { get; set; }
         public  Brand Brand { get; set; }
         public  Component Component { get; set; }
+        public ICollection<LaptopImage> LaptopImage { get; set; }
+        public ICollection<BillInfo> BillInfos {get;set;}
         
     }
 }

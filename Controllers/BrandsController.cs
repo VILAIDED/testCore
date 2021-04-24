@@ -18,12 +18,14 @@ namespace testCore.Controllers
         {
             _context = context;
         }
+        
 
         // GET: Brands
         public async Task<IActionResult> Index()
         {
             return View(await _context.Brand.ToListAsync());
         }
+        
         public async Task<IActionResult> List(int? id)
         {
             if(id == null)

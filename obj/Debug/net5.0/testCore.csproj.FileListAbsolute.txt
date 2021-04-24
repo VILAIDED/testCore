@@ -182,3 +182,4 @@ E:\Project\dotnet\testCore\testCore\obj\Debug\net5.0\Razor\Views\Laptops\Details
 E:\Project\dotnet\testCore\testCore\obj\Debug\net5.0\Razor\Views\Laptops\Edit.cshtml.g.cs
 E:\Project\dotnet\testCore\testCore\obj\Debug\net5.0\Razor\Views\Laptops\Index.cshtml.g.cs
 E:\Project\dotnet\testCore\testCore\obj\Debug\net5.0\Razor\Views\Brands\List.cshtml.g.cs
+E:\Project\dotnet\testCore\testCore\obj\Debug\net5.0\Razor\Views\Home\MyCard.cshtml.g.cs

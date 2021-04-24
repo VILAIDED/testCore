@@ -15699,6 +15699,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "e:\\Project\\dotnet\\testCore\\testCore\\Views\\Home\\MyCard.cshtml",
+      "TargetPath": "Views\\Home\\MyCard.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "e:\\Project\\dotnet\\testCore\\testCore\\Views\\_ViewStart.cshtml",
       "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"

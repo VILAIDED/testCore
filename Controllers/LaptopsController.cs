@@ -50,6 +50,7 @@ namespace testCore.Controllers
         // GET: Laptops/Create
         public IActionResult Create()
         {
+           
             ViewData["BrandID"] = new SelectList(_context.Brand, "ID", "BrandName");
             return View();
         }
@@ -74,30 +75,32 @@ namespace testCore.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("ID,BrandID,Price,LaptopName,Info,Amount")] Laptop laptop,IFormFile file)
         {
-            string path = "";
-        
-            if (file != null)
-            {
-                string fileName = Path.GetFileName(file.FileName);
-                path = Path.Combine(Directory.GetCurrentDirectory(),"Image", fileName);
-                Console.WriteLine(path);
-               using(var stream = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-            }
-          /*  LaptopImage image = new LaptopImage();
-            image.imagePath = file == null ?  "" : path;
-            image.LaptopId = laptop.ID;
-             _context.LaptopImage.Add(image);
-            await  _context.SaveChangesAsync();*/
-                if (ModelState.IsValid)
+          
+            if (ModelState.IsValid)
                 {
                     _context.Add(laptop);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                  
+                string path = "";
+
+                if (file != null)
+                {
+                    string fileName = Path.GetFileName(file.FileName);
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "Image", fileName);
+                    Console.WriteLine(path);
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
                 }
+                LaptopImage image = new LaptopImage();
+                image.ImagePath = file == null ? "" : path;
+                image.LaptopId = laptop.ID;
+                _context.LaptopImage.Add(image);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
             ViewData["BrandID"] = new SelectList(_context.Brand, "ID", "ID", laptop.BrandID);
             return View(laptop);
         }
@@ -115,7 +118,17 @@ namespace testCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["BrandID"] = new SelectList(_context.Brand, "ID", "BrandName", laptop.BrandID);
+            SelectList selectListItems = new SelectList(_context.Brand, "ID", "BrandName",laptop.BrandID);
+           /* for(int i = 0; i < selectListItems.Items.C)
+            foreach (SelectListItem item in selectListItems.Items)
+            {
+                if (item.Value ==  laptop.BrandID.ToString())
+                {
+                    item.Selected = true;
+                }
+     
+            }*/
+            ViewData["BrandID"] = selectListItems;
             return View(laptop);
         }
 
@@ -124,13 +137,29 @@ namespace testCore.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,BrandID,Price,LaptopName,Info,Amount")] Laptop laptop)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,BrandID,Price,LaptopName,Info,Amount")] Laptop laptop,IFormFile file)
         {
             if (id != laptop.ID)
             {
                 return NotFound();
             }
+            String path = "";
+            if (file != null)
+            {
+                string fileName = Path.GetFileName(file.FileName);
+                path = Path.Combine(Directory.GetCurrentDirectory(), "Image", fileName);
+                Console.WriteLine(path);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
 
+            }
+            LaptopImage image = new LaptopImage();
+            image.ImagePath = file == null ? "" : path;
+            image.LaptopId = laptop.ID;
+            _context.LaptopImage.Add(image);
+            await _context.SaveChangesAsync();
             if (ModelState.IsValid)
             {
                 try
